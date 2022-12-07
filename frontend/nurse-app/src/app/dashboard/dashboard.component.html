@@ -1,1 +1,4 @@
-<p>dashboard works!</p>
+<div *ngFor="let day of week">
+<h1>{{ day | date : 'EEEE'}}<br></h1>
+{{ day | date }}
+</div>

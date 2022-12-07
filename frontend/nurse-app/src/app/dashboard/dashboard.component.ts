@@ -9,11 +9,17 @@ import { VisitService } from '../services/visit.service';
 })
 export class DashboardComponent implements OnInit {
 
+  week = [];
+
   constructor(private patientService: PatientService, private visitService: VisitService) { }
 
   ngOnInit(): void {
     this.visitService.getWeek().subscribe(resp => {
-      console.log(resp);
+      for (var day in resp) {
+        let date = new Date(resp[day]);
+        date.setHours(date.getHours() + 6);
+        this.week.push(date);
+      }
     });
   }
 
