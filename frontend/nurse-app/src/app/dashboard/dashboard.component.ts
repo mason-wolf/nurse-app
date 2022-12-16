@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { PatientService } from '../services/patient.service';
 import { VisitService } from '../services/visit.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Patient } from '../models/patient';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +12,14 @@ import { VisitService } from '../services/visit.service';
 export class DashboardComponent implements OnInit {
 
   week = [];
-
-  constructor(private patientService: PatientService, private visitService: VisitService) { }
+  @ViewChild('schedulePatientDialog') schedulePatientDialog = {} as TemplateRef<any>;
+  @ViewChild('addPatientDialog') addPatientDialog = {} as TemplateRef<any>;
+  
+  newPatient = new Patient();
+  
+  constructor(private patientService: PatientService, 
+    private visitService: VisitService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.visitService.getWeek().subscribe(resp => {
@@ -21,6 +29,18 @@ export class DashboardComponent implements OnInit {
         this.week.push(date);
       }
     });
+  }
+
+  showSchedulePatient() {
+    this.dialog.open(this.schedulePatientDialog);
+  }
+
+  showAddPatient() {
+    this.dialog.open(this.addPatientDialog);
+  }
+
+  addPatient() {
+    console.log(this.newPatient);
   }
 
 }

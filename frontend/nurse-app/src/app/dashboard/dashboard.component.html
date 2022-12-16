@@ -1,4 +1,62 @@
-<div *ngFor="let day of week">
-<h1>{{ day | date : 'EEEE'}}<br></h1>
-{{ day | date }}
+<div class="container-fluid">
+    <div class="row p-3 nav">
+        <div class="col-2 nav-item">
+            <a href="javascript:void(0)" (click)="showAddPatient()">Add Patient<i class="fa-solid fa-user nav-icon"></i></a>
+        </div>
+        <div class="col-2 nav-item">
+            <a href="">Map<i class="fa-solid fa-map nav-icon"></i></a>
+        </div>
+        <div class="col-2 nav-item" style="margin-left:-35px;">
+            <a href="">Patients<i class="fa-solid fa-users nav-icon"></i></a>
+        </div>
+        <div class="col-2 nav-item" style="margin-left:-10px;">
+          <a href="">Visits<i class="fa-solid fa-book nav-icon"></i></a>
+      </div>
+    </div>
+    <div class="row shadow p-4 mt-2">
+        <div *ngFor="let day of week" class="day">
+            <h1>{{ day | date : 'EEEE'}}<i class="fa-solid fa-plus add-btn" (click)="showSchedulePatient()"></i></h1>
+            <div class="date">{{ day | date }}</div>
+        </div>            
+    </div>
 </div>
+
+<!-- Add Patient -->
+<ng-template let-data #addPatientDialog class="patient-dialog">
+    <h1 mat-dialog-title></h1>
+    <div mat-dialog-content>
+      <h1>Add Patient</h1>
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput [(ngModel)]="newPatient.first_name">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)]="newPatient.last_name">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput [(ngModel)]="newPatient.address">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close (click)="addPatient()">Add</button>
+    </div>
+</ng-template> 
+
+<!-- Search Patient -->
+<ng-template let-data #schedulePatientDialog class="patient-dialog">
+    <h1 mat-dialog-title></h1>
+    <div mat-dialog-content>
+      <h1>Schedule Patient</h1>
+      <mat-form-field appearance="fill">
+        <mat-label>Patient Name</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <button mat-button>Search</button>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+    </div>
+</ng-template> 
