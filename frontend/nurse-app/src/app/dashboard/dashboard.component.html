@@ -1,49 +1,18 @@
+<app-header>
+</app-header>
 <div class="container-fluid">
-    <div class="row p-3 nav">
-        <div class="col-2 nav-item">
-            <a href="javascript:void(0)" (click)="showAddPatient()">Add Patient<i class="fa-solid fa-user nav-icon"></i></a>
-        </div>
-        <div class="col-2 nav-item">
-            <a href="">Map<i class="fa-solid fa-map nav-icon"></i></a>
-        </div>
-        <div class="col-2 nav-item" style="margin-left:-35px;">
-            <a href="">Patients<i class="fa-solid fa-users nav-icon"></i></a>
-        </div>
-        <div class="col-2 nav-item" style="margin-left:-10px;">
-          <a href="">Visits<i class="fa-solid fa-book nav-icon"></i></a>
-      </div>
-    </div>
     <div class="row shadow p-4 mt-2">
         <div *ngFor="let day of week" class="day">
-            <h1>{{ day | date : 'EEEE'}}<i class="fa-solid fa-plus add-btn" (click)="showSchedulePatient()"></i></h1>
+            <h1>{{ day | date : 'EEEE'}}<i class="fa-solid fa-plus add-btn" (click)="showSchedulePatient(day)"></i></h1>
             <div class="date">{{ day | date }}</div>
-        </div>            
+            <div *ngFor="let visit of visits">
+              <div *ngIf="visit.date == day" class="visit">
+              <a href="javascript:void(0)" (click)="getVisit(visit)">{{ visit.last_name | uppercase }}, {{ visit.first_name | uppercase }}</a>
+              </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<!-- Add Patient -->
-<ng-template let-data #addPatientDialog class="patient-dialog">
-    <h1 mat-dialog-title></h1>
-    <div mat-dialog-content>
-      <h1>Add Patient</h1>
-      <mat-form-field appearance="fill">
-        <mat-label>First Name</mat-label>
-        <input matInput [(ngModel)]="newPatient.first_name">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Last Name</mat-label>
-        <input matInput [(ngModel)]="newPatient.last_name">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Address</mat-label>
-        <input matInput [(ngModel)]="newPatient.address">
-      </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button mat-dialog-close (click)="addPatient()">Add</button>
-    </div>
-</ng-template> 
 
 <!-- Search Patient -->
 <ng-template let-data #schedulePatientDialog class="patient-dialog">
@@ -51,12 +20,31 @@
     <div mat-dialog-content>
       <h1>Schedule Patient</h1>
       <mat-form-field appearance="fill">
-        <mat-label>Patient Name</mat-label>
-        <input matInput>
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchPatient()">
       </mat-form-field>
-      <button mat-button>Search</button>
+    </div>
+    <div *ngIf="patientSearch">
+        <p *ngFor="let patient of patientSearch">
+          <a href="javascript:void(0)" (click)="schedulePatient(patient)">{{ patient.last_name | uppercase}} , {{ patient.first_name | uppercase }}</a>
+        </p>
     </div>
     <div mat-dialog-actions>
       <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button (click)="searchPatient()" style="float:right;">Search</button>
     </div>
-</ng-template> 
+</ng-template>
+
+<!-- View Visit-->
+<ng-template let-data #viewVisitDialog>
+  <h1 mat-dialog-title></h1>
+  <div mat-dialog-content>
+    <h1>{{ selectedVisit.last_name | uppercase }} , {{ selectedVisit.first_name | uppercase }} </h1>
+    {{ selectedVisit.date | date : 'EEEE'}} {{ selectedVisit.date | date }}
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button color="accent" mat-dialog-close (click)="unscheduleVisit()">Unschedule</button>
+    <button mat-button [routerLink]="['/patient-profile', selectedVisit.patient_id]" mat-dialog-close>Patient Profile</button>
+  </div>
+</ng-template>

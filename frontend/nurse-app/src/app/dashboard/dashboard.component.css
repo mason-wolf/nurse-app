@@ -12,27 +12,13 @@
   }
 
   .day {
+    padding: 1em;
     margin-top:15px;
+    border-bottom: 1px solid #ccc;
   }
 
-  .nav {
-    background-color: rgb(51, 176, 230);
-    font-size: 20px;
-    color: #fff;
-  }
-
-  .nav-item {
-    width: 130px;
-  }
-
-  .nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-  }
-
-  .nav-icon {
-    margin-left:10px;
+  .visit {
+    margin-top: 5px;
   }
 
   .mat-form-field {

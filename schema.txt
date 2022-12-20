@@ -1,0 +1,22 @@
+-- CREATE database nurseapp;
+-- USE nurseapp;
+
+CREATE TABLE patient(
+id INT AUTO_INCREMENT PRIMARY KEY,
+first_name varchar(255),
+last_name varchar(255),
+latitude varchar(255),
+longitude varchar(255),
+address varchar(255),
+notes varchar(255));
+
+CREATE TABLE visit(
+id INT AUTO_INCREMENT PRIMARY KEY,
+patient_id INT,
+date DATE,
+notes varchar(255),
+FOREIGN KEY(patient_id) REFERENCES patient(id) ON DELETE CASCADE);
+
+
+
+

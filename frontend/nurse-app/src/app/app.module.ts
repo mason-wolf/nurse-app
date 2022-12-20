@@ -14,6 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { PatientProfileComponent } from './patient-profile/patient-profile.component';
+import { HeaderComponent } from './header/header.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,9 @@ import { MatButtonModule } from '@angular/material/button';
     DashboardComponent,
     PatientsComponent,
     VisitsComponent,
-    MapComponent
+    MapComponent,
+    PatientProfileComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +38,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     FormsModule,
     MatFormFieldModule,
+    MatTableModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

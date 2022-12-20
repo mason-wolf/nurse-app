@@ -1,0 +1,19 @@
+.nav {
+    background-color: rgb(51, 176, 230);
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .nav-item {
+    width: 130px;
+  }
+
+  .nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+  }
+
+  .nav-icon {
+    margin-left:10px;
+  }
