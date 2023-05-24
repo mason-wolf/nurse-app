@@ -45,18 +45,16 @@ def updatePatient(patient):
     last_name = patient["last_name"]
     address = patient["address"]
     notes = patient["notes"]
-
-    address = address
+    phone_number = patient["phone_number"]
     geolocator = Nominatim(user_agent="my_request")
     location = geolocator.geocode(address)
-
-    query = "UPDATE patient SET first_name=%s, last_name=%s, address=%s, latitude=%s, longitude=%s, notes=%s WHERE id=%s"
+    query = "UPDATE patient SET first_name=%s, last_name=%s, address=%s, phone_number=%s, latitude=%s, longitude=%s, notes=%s WHERE id=%s"
     conn = db.getConnection()
     cursor = conn.cursor()
     if location is None:
         cursor.execute(query, (first_name, last_name, address, 0, 0, notes, patient_id))
     else:
-        cursor.execute(query, (first_name, last_name, address, location.latitude, location.longitude, notes, patient_id))
+        cursor.execute(query, (first_name, last_name, address, phone_number, location.latitude, location.longitude, notes, patient_id))
     conn.commit()
     cursor.close()
     conn.close()

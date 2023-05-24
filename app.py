@@ -51,7 +51,21 @@ def searchPatient():
 def getVisits():
     response = visitdb.getVisits()
     return jsonify(response)
-    
+
+@app.route('/updateVisit', methods=['POST'])
+def updateVisit():
+    visit = json.loads(request.data)
+    if "status" not in visit:
+        visit["status"] = "Pending"
+    if "visit_time" not in visit:
+        visit["visit_time"] = ""
+    if "mileage" not in visit:
+        visit["mileage"] = 0
+    if "mileage_exempt" not in visit:
+        visit["mileage_exempt"] = False
+    response = visitdb.updateVisit(visit)
+    return jsonify(response)
+
 @app.route('/scheduleVisit', methods=['POST'])
 def scheduleVisit():
     response = visitdb.scheduleVisit(json.loads(request.data))

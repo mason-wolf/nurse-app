@@ -2,14 +2,43 @@
 </app-header>
 <div class="container-fluid">
     <div class="row shadow p-4 mt-2">
+      <div class="col-6">
+        <div class="card" style="text-align: center;">
+          <div class="card-body">
+            <h2>Visits</h2>
+            <h3>{{ visits.length }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card" style="text-align: center;">
+          <div class="card-body">
+            <h2>Mileage</h2>
+            <h3>{{ mileage }}</h3>
+          </div>
+        </div>
+      </div>
         <div *ngFor="let day of week" class="day">
             <h1>{{ day | date : 'EEEE'}}<i class="fa-solid fa-plus add-btn" (click)="showSchedulePatient(day)"></i></h1>
             <div class="date">{{ day | date }}</div>
-            <div *ngFor="let visit of visits">
-              <div *ngIf="visit.date == day" class="visit">
-              <a href="javascript:void(0)" (click)="getVisit(visit)">{{ visit.last_name | uppercase }}, {{ visit.first_name | uppercase }}</a>
-              </div>
-            </div>
+            <table class="visit-table">
+              <tr>
+                <th>Patient Name</th>
+                <th>Visit Status</th>
+                <th>Visit Time</th>
+                <th>Mileage</th>
+              </tr>
+              <tr *ngFor="let visit of visits">
+                <ng-container *ngIf="visit.date == day">
+                  <td style="width:300px;"><a href="javascript:void(0)" (click)="getVisit(visit)">{{ visit.last_name | uppercase }}, {{ visit.first_name | uppercase }}</a></td>
+                  <td [ngClass]="{'completed' : visit.status == 'Completed', 'missed' : visit.status == 'Missed'}">
+                    {{ visit.status }}
+                  </td>
+                  <td>{{visit.visit_time}}</td>
+                  <td>{{visit.mileage}} <ng-container *ngIf="visit.mileage_exempt">(exempt)</ng-container></td>
+                </ng-container>
+              </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -42,9 +71,35 @@
     <h1>{{ selectedVisit.last_name | uppercase }} , {{ selectedVisit.first_name | uppercase }} </h1>
     {{ selectedVisit.date | date : 'EEEE'}} {{ selectedVisit.date | date }}
   </div>
+  <mat-form-field style="margin-top:20px;">
+    <mat-label>
+      Status
+    </mat-label>
+    <mat-select [(ngModel)]="selectedVisit.status">
+      <mat-option value="Confirmed">Confirmed</mat-option>
+      <mat-option value="Completed">Completed</mat-option>
+      <mat-option value="Missed">Missed</mat-option>
+      <mat-option value="Left Message">Left Message</mat-option>
+      <mat-option value="Texted">Texted</mat-option>
+      <mat-option value="Call on Way">Call on Way</mat-option>
+      <mat-option value="Pending">Pending</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Visit Time</mat-label>
+    <input matInput [(ngModel)]="selectedVisit.visit_time">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Mileage</mat-label>
+    <input matInput [(ngModel)]="selectedVisit.mileage">
+  </mat-form-field>
+  <mat-checkbox style="float:right;" [(ngModel)]="selectedVisit.mileage_exempt">Mileage Exempt</mat-checkbox>
+  <h3>Notes</h3>
+  <textarea class="notes" [(ngModel)]="selectedVisit.notes"></textarea>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-button color="accent" mat-dialog-close (click)="unscheduleVisit()">Unschedule</button>
     <button mat-button [routerLink]="['/patient-profile', selectedVisit.patient_id]" mat-dialog-close>Patient Profile</button>
+    <button mat-button color="primary" class="green" (click)="updateVisit()" mat-dialog-close>Update</button>
   </div>
 </ng-template>

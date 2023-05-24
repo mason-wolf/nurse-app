@@ -45,6 +45,7 @@ export class PatientProfileComponent implements OnInit {
   }
 
   updatePatient() {
+    console.log(this.patient);
     this.patientService.updatePatient(this.patient).subscribe(value => {
       console.log(value);
     });

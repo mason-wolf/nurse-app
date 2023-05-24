@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
 
   visits: Visit[] = [];
   patientSearch: Patient[] = [];
+  mileage = 0;
 
   constructor(private patientService: PatientService,
     private visitService: VisitService,
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
   getWeek() {
     this.week =  [];
     this.visits = [];
+    this.mileage = 0;
     this.visitService.getWeek().subscribe(resp => {
 
       for (var day in resp) {
@@ -46,6 +48,10 @@ export class DashboardComponent implements OnInit {
           date.setHours(date.getHours() + 6);
           resp[day]["visits"][visit]["date"] = date.toString();
           this.visits.push(resp[day]["visits"][visit]);
+          let visit_mileage = resp[day]["visits"][visit];
+          if (visit_mileage["mileage_exempt"] != true) {
+            this.mileage += visit_mileage["mileage"];
+          }
         }
       }
     });
@@ -53,13 +59,17 @@ export class DashboardComponent implements OnInit {
 
   getVisit(visit: Visit) {
     this.selectedVisit = visit;
-    console.log(this.selectedVisit.patient_id);
     this.dialog.open(this.viewVisitDialog);
+  }
+
+  updateVisit() {
+    this.visitService.updateVisit(this.selectedVisit).subscribe(value => {
+      this.getWeek();
+    });
   }
 
   unscheduleVisit() {
     this.visitService.unscheduleVisit(this.selectedVisit.id).subscribe(value => {
-      console.log(value);
       this.selectedVisit = new Visit();
       this.getWeek();
     });
@@ -72,7 +82,6 @@ export class DashboardComponent implements OnInit {
   searchPatient() {
     this.patientService.searchPatient(this.searchTerm).subscribe(value => {
       this.patientSearch = value;
-      console.log(this.patientSearch);
     });
   }
 

@@ -19,6 +19,10 @@ export class VisitService {
     return this.httpClient.get(environment.url + "/getWeek");
   }
 
+  updateVisit(visit: Visit) {
+    return this.httpClient.post(environment.url  + "/updateVisit", visit);
+  }
+  
   scheduleVisit(visit: Visit) {
     return this.httpClient.post(environment.url + "/scheduleVisit", visit);
   }
