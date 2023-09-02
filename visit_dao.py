@@ -29,7 +29,7 @@ def getVisits():
     return result
     
 def getVisitByDate(date):
-    query = "SELECT date, first_name, last_name, address, patient.id as patient_id, visit.id, visit.status, visit.visit_time, visit.notes, visit.mileage, visit.mileage_exempt FROM visit INNER JOIN patient ON visit.patient_id=patient.id WHERE date=%s"
+    query = "SELECT date, first_name, last_name, address, patient.id as patient_id, patient.latitude, patient.longitude, visit.id, visit.status, visit.visit_time, visit.notes, visit.mileage, visit.mileage_exempt FROM visit INNER JOIN patient ON visit.patient_id=patient.id WHERE date=%s"
     result = db.executeQuery(query, (date,))
     return result
 

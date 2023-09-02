@@ -11,6 +11,8 @@ import { VisitService } from '../services/visit.service';
 export class MapComponent implements OnInit {
 
   private map;
+  private visits: any[] = [];
+
   constructor(private visitService: VisitService) { }
 
   private initMap(): void {
@@ -27,16 +29,32 @@ export class MapComponent implements OnInit {
 
     tiles.addTo(this.map);
 
-    this.visitService.getWeek().subscribe(value => {
-      console.log(value);
+    this.visitService.getWeek().subscribe(week => {
+      for (var day in week) {
+        for (var visit in week[day]["visits"]) {
+          this.visits.push(week[day]["visits"][visit])
+         // console.log(week[day]["visits"][visit]);
+        }
+      }
+      console.log(this.visits);
+      for (var visit in this.visits) {
+        console.log(this.visits[visit]);
+        if (this.visits[visit]["latitude"] != null && this.visits[visit]["longitude"] != null) {
+          var marker = L.marker([this.visits[visit]["latitude"], this.visits[visit]["longitude"]]).addTo(this.map);
+          marker.bindPopup("<b>" +
+          this.visits[visit]["first_name"] +
+          " " +
+          this.visits[visit]["last_name"] +
+          "</b><br><a href='http://maps.google.com/?q=" +
+          this.visits[visit]["address"] + "'  target='_blank'>" + this.visits[visit]["address"] + "</a>").openPopup();
+        }
+      }
     });
-    
-    var marker = L.marker([33.20097493343204, -87.54411968949736]).addTo(this.map);
-    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
     this.map.flyTo([33.20097493343204, -87.54411968949736], 13);
   }
 
   ngOnInit(): void {
+
   }
 
   ngAfterViewInit(): void {
