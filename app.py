@@ -1,18 +1,25 @@
 import json
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask.json import jsonify
 from flask_cors import CORS
 from datetime import timedelta, date
 import patient_dao as patientdb
 import visit_dao as visitdb
+import os
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/')
-def index():
-    return jsonify({ "status" : "online"})
+# Handle Angular Routing
+@app.route('/', defaults={'path': ''})
+@app.route('/<string:path>')
+@app.route('/<path:path>')
+def static_proxy(path):
+    if os.path.isfile('templates/' + path):
+        return send_from_directory('templates', path)
+    else:
+        return send_from_directory("templates", "index.html")
 
 # Patients
 @app.route('/getPatients', methods=['GET'])
