@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Patient } from '../models/patient';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,29 +10,28 @@ import { Observable } from 'rxjs/internal/Observable';
 export class PatientService {
 
   constructor(private httpClient: HttpClient) { }
-  api = "http://localhost:80/"
 
   getPatients(): Observable<Patient[]> {
-    return this.httpClient.get<Patient[]>(this.api + 'getPatients');
+    return this.httpClient.get<Patient[]>(environment.url + '/getPatients');
   }
 
   getPatientById(patient_id: string) : Observable<Patient> {
-    return this.httpClient.post<Patient>(this.api + "getPatientById", patient_id);
+    return this.httpClient.post<Patient>(environment.url + "/getPatientById", patient_id);
   }
 
   addPatient(patient: Patient) {
-    return this.httpClient.post(this.api + "addPatient", patient);
+    return this.httpClient.post(environment.url + "/addPatient", patient);
   }
 
   searchPatient(searchTerm: string): Observable<Patient[]> {
-    return this.httpClient.post<Patient[]>(this.api + "searchPatient", {search_term: searchTerm})
+    return this.httpClient.post<Patient[]>(environment.url + "/searchPatient", {search_term: searchTerm})
   }
 
   updatePatient(patient: Patient) {
-    return this.httpClient.post(this.api + "updatePatient", patient);
+    return this.httpClient.post(environment.url + "/updatePatient", patient);
   }
 
   deletePatient(patient_id: string) {
-    return this.httpClient.post(this.api + "deletePatient", patient_id);
+    return this.httpClient.post(environment.url + "/deletePatient", patient_id);
   }
 }
