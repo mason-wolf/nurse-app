@@ -2,7 +2,7 @@ import mysql.connector
 
 def getConnection():
     db = mysql.connector.connect(
-        host = "192.168.4.71",
+        host = "localhost",
         user="mason",
         password="wolfpack",
         database="nurseapp"

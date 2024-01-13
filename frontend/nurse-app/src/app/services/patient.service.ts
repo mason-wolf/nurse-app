@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class PatientService {
 
   constructor(private httpClient: HttpClient) { }
-  api = "http://localhost:80/"
+  api = "http://localhost:5002/"
 
   getPatients(): Observable<Patient[]> {
     return this.httpClient.get<Patient[]>(this.api + 'getPatients');
@@ -33,5 +33,9 @@ export class PatientService {
 
   deletePatient(patient_id: string) {
     return this.httpClient.post(this.api + "deletePatient", patient_id);
+  }
+
+  searchPatientByNotes(searchTerm: string) {
+    return this.httpClient.post<Patient[]>(this.api + "searchNotes", {search_term: searchTerm})
   }
 }

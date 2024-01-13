@@ -21,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     VisitsComponent,
     MapComponent,
     PatientProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

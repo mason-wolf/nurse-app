@@ -52,6 +52,11 @@ def searchPatient():
     response = patientdb.searchPatient(json.loads(request.data))
     return jsonify(response)
 
+@app.route('/searchNotes', methods=['POST'])
+def searchNotes():
+    response = patientdb.searchPatientsByNote(json.loads(request.data))
+    return jsonify(response)
+
 # Visits
 
 @app.route('/getVisits', methods=['GET'])

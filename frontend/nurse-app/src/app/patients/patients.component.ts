@@ -29,6 +29,7 @@ export class PatientsComponent implements OnInit {
 
   getPatients() {
     this.patientService.getPatients().subscribe(value => {
+      console.log(value)
       this.patients = new MatTableDataSource(value);
       this.patients.paginator = this.paginator;
       this.patients.sort = this.sort;
@@ -40,6 +41,10 @@ export class PatientsComponent implements OnInit {
   }
 
   addPatient() {
+    if (this.newPatient.address == undefined) {
+      this.newPatient.address = "1"
+      this.newPatient.phone_number = "1";
+    }
     this.patientService.addPatient(this.newPatient).subscribe(value => {
       this.newPatient = new Patient();
       this.getPatients();

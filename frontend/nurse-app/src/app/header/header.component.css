@@ -17,3 +17,7 @@
   .nav-icon {
     margin-left:10px;
   }
+
+  input {
+    outline:none;
+  }

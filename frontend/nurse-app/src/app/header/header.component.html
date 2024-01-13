@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row p-3 nav">
-        <div class="col-2 nav-item">
+        <div class="nav-item">
             <a href="">Schedule<i class="fa-solid fa-clock nav-icon"></i></a>
         </div>
         <div class="col-2 nav-item">
@@ -11,6 +11,10 @@
         </div>
         <div class="col-2 nav-item" style="margin-left:-10px;">
           <a href="visits">Visits<i class="fa-solid fa-book nav-icon"></i></a>
+      </div>
+      <div class="col-4 nav-item" style="margin-left:500px;">
+        <input [(ngModel)]="searchTerm">
+        <button (click)="search()">Search</button>
       </div>
     </div>
 </div>

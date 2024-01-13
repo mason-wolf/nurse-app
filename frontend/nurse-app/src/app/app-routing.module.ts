@@ -5,6 +5,7 @@ import { MapComponent } from './map/map.component';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { PatientsComponent } from './patients/patients.component';
 import { VisitsComponent } from './visits/visits.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path : 'patient-profile/:patient_id', component: PatientProfileComponent},
   { path: 'patients', component: PatientsComponent},
   { path: 'visits', component: VisitsComponent},
-  { path: 'map', component: MapComponent}
+  { path: 'map', component: MapComponent},
+  { path: 'search', component: SearchComponent}
 ];
 
 @NgModule({
