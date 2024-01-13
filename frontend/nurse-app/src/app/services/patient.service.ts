@@ -36,6 +36,6 @@ export class PatientService {
   }
 
   searchPatientByNotes(searchTerm: string) {
-    return this.httpClient.post<Patient[]>(environment.url + "searchNotes", {search_term: searchTerm})
+    return this.httpClient.post<Patient[]>(environment.url + "/searchNotes", {search_term: searchTerm})
   }
 }
