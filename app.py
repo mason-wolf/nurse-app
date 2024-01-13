@@ -92,7 +92,6 @@ def searchNotes():
 @app.route("/login", methods=['POST'])
 def login():
     credentials = json.loads(request.data)
-    print(credentials)
     user = User(credentials["username"], credentials["password"])
     login = load_user(user.email, user.password)
     if login is not None:
