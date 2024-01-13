@@ -6,15 +6,16 @@ import { PatientProfileComponent } from './patient-profile/patient-profile.compo
 import { PatientsComponent } from './patients/patients.component';
 import { VisitsComponent } from './visits/visits.component';
 import { SearchComponent } from './search/search.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: LoginComponent },
   { path: 'schedule', component: DashboardComponent },
   { path : 'patient-profile/:patient_id', component: PatientProfileComponent},
   { path: 'patients', component: PatientsComponent},
   { path: 'visits', component: VisitsComponent},
   { path: 'map', component: MapComponent},
-  { path: 'search', component: SearchComponent}
+  { path: 'search', component: SearchComponent},
 ];
 
 @NgModule({

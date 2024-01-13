@@ -3,9 +3,12 @@ import mysql.connector
 def getConnection():
     db = mysql.connector.connect(
         host = "localhost",
-        user="mason",
-        password="wolfpack",
+        user="root",
+        password="Nosam419!",
         database="nurseapp"
+        # user="mason",
+        # password="wolfpack",
+        # database="nurseapp"
     )
     return db
 

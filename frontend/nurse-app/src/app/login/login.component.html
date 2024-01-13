@@ -1,0 +1,20 @@
+
+<div class="container-fluid login">
+  <div class="row">
+    <div class="col-12 p-4">
+        <h1>Login</h1>
+  <mat-form-field appearance="fill" style="width:100%;">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="email">
+  </mat-form-field>
+  <mat-form-field appearance="fill" style="width:100%;">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" [(ngModel)]="password">
+  </mat-form-field>
+  <button mat-button class="green" style="float:right;" (click)="login()">Login</button>
+  <div *ngIf="error" class="error">
+    Incorrect email or password.
+    </div>
+    </div>
+</div>
+</div>
