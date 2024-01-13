@@ -1,0 +1,9 @@
+Updating ca5af25..61ec1e5
+Fast-forward
+ .gitignore                                         |   1 +
+ __pycache__/db.cpython-39.pyc                      | Bin 991 -> 994 bytes
+ app.py                                             |   2 +-
+ db.py                                              |   6 +++---
+ frontend/nurse-app/src/environments/environment.ts |   2 +-
+ 5 files changed, 6 insertions(+), 5 deletions(-)
+ create mode 100644 .gitignore

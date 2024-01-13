@@ -23,17 +23,17 @@
     "@angular/router": "~11.0.5",
     "bootstrap": "^5.2.3",
     "jquery": "^3.6.1",
+    "leaflet": "^1.7.1",
+    "leaflet-moving-marker": "^0.3.0",
+    "leaflet.animatedmarker": "^1.0.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-    "leaflet": "^1.7.1",
-    "leaflet-moving-marker": "^0.3.0",
-    "leaflet.animatedmarker": "^1.0.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.5",
-    "@angular/cli": "~11.0.5",
+    "@angular/cli": "^11.0.0",
     "@angular/compiler-cli": "~11.0.5",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
