@@ -28,10 +28,10 @@ app.register_blueprint(auth_controller)
 @app.route('/<string:path>')
 @app.route('/<path:path>')
 def static_proxy(path):
-    if os.path.isfile('templates/' + path):
-        return send_from_directory('templates', path)
+    if os.path.isfile('../templates/' + path):
+        return send_from_directory('../templates', path)
     else:
-        return send_from_directory("templates", "index.html")
+        return send_from_directory("../templates", "index.html")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True, port=5000)
