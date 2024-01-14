@@ -12,26 +12,26 @@ export class VisitService {
   constructor(private httpClient: HttpClient) { }
 
   getVisits() : Observable<Visit[]> {
-    return this.httpClient.get<Visit[]>(environment.url + "/getVisits");
+    return this.httpClient.get<Visit[]>(environment.url + "/patients/visits");
   }
 
   getWeek() {
-    return this.httpClient.get(environment.url + "/getWeek");
+    return this.httpClient.get(environment.url + "/week");
   }
 
   updateVisit(visit: Visit) {
-    return this.httpClient.post(environment.url  + "/updateVisit", visit);
+    return this.httpClient.put(environment.url  + "/patients/visits", visit);
   }
-  
+
   scheduleVisit(visit: Visit) {
-    return this.httpClient.post(environment.url + "/scheduleVisit", visit);
+    return this.httpClient.post(environment.url + "/patients/visits", visit);
   }
 
   unscheduleVisit(visit_id) {
-    return this.httpClient.post(environment.url + "/unscheduleVisit", visit_id);
+    return this.httpClient.delete(environment.url + "/patients/visits/" + visit_id);
   }
 
-  getVisitsByPatient(patient_id): Observable<Visit[]> {
-    return this.httpClient.post<Visit[]>(environment.url + "/getVisitsByPatient", patient_id);
+  getPatientVisits(patient_id): Observable<Visit[]> {
+    return this.httpClient.get<Visit[]>(environment.url + "/patients/" + patient_id + "/visits");
   }
 }

@@ -73,7 +73,7 @@ export class PatientProfileComponent implements OnInit {
       this.patient = value;
     });
 
-    this.visitService.getVisitsByPatient(patientId).subscribe(value => {
+    this.visitService.getPatientVisits(patientId).subscribe(value => {
       this.recentVisits = new MatTableDataSource(value);
     })
 
@@ -82,7 +82,6 @@ export class PatientProfileComponent implements OnInit {
         this.conditions.push({name: value[c]["condition_name"]});
       }
       // this.conditions.push({name: value.trim()});
-       console.log(value);
     })
   }
 
