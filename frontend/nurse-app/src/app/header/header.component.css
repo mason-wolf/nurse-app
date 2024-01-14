@@ -1,23 +1,35 @@
 .nav {
-    background-color: rgb(51, 176, 230);
-    font-size: 20px;
-    color: #fff;
-  }
+  background-color: rgb(23, 145, 197);
+  padding:1em;
+  display:block;
+}
 
-  .nav-item {
-    width: 130px;
-  }
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin-left:25px;
+}
 
-  .nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-  }
+.nav-icon {
+  margin-left:10px;
+}
 
-  .nav-icon {
-    margin-left:10px;
-  }
+.search {
+  float:right;
+  margin-top:-5px;
+}
 
-  input {
-    outline:none;
-  }
+.search input, button {
+  padding: .25em;
+}
+
+.search input {
+  outline:none;
+  border:1px solid white;
+}
+
+.search button {
+  background-color: #4CAF50;
+  border:1px solid #4CAF50;
+  color: white;
+}

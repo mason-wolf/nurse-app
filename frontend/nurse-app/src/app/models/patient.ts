@@ -1,3 +1,5 @@
+
+
 export class Patient {
     id: string;
     first_name: string;
@@ -5,4 +7,5 @@ export class Patient {
     address: string;
     phone_number: string;
     notes: string;
+    conditions: string;
 }

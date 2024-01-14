@@ -9,3 +9,15 @@ margin-right: 10px;
 .mat-form-field {
     width: 100%;
 }
+
+.chip-list {
+  width: 100%;
+}
+
+.remove {
+  margin-top:2px;
+}
+
+.b {
+  background-color: rgb(70, 174, 219) !important;
+}

@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 export class SearchComponent implements OnInit {
 
   patients: MatTableDataSource<Patient>;
-  displayedColumns : string[] = ["id", "last_name", "first_name"];
+  displayedColumns : string[] = ["id", "last_name", "first_name", "condition"];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(terms=> {
-      this.patientService.searchPatientByNotes(terms["params"].searchTerm).subscribe(value => {
+      this.patientService.searchPatientsByCondition(terms["params"].searchTerm).subscribe(value => {
         console.log(value)
         this.patients = new MatTableDataSource(value);
       })

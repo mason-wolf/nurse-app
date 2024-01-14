@@ -23,6 +23,24 @@ export class PatientService {
     return this.httpClient.post(environment.url + "/addPatient", patient);
   }
 
+  addPatientCondition(patient_id:string, condition: string) {
+    return this.httpClient.post(environment.url + "/patient/conditions", { patient_id: patient_id, condition: condition})
+  }
+
+  getPatientConditions(patient_id: string) {
+    return this.httpClient.get(environment.url + "/patient/" + patient_id + "/conditions");
+  }
+
+  deletePatientCondition(patient_id: string, condition_name: string) {
+    return this.httpClient.delete(environment.url + "/patient/" + patient_id + "/conditions/delete",
+    { params: {condition_name: condition_name}})
+  }
+
+  searchPatientsByCondition(conditionName: string): Observable<any> {
+    const url = `${environment.url}/patient/conditions/search?condition_name=${conditionName}`;
+    return this.httpClient.get(url);
+  }
+
   searchPatient(searchTerm: string): Observable<Patient[]> {
     return this.httpClient.post<Patient[]>(environment.url + "/searchPatient", {search_term: searchTerm})
   }

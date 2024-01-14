@@ -9,8 +9,12 @@
         <button mat-button color="primary" class="green" (click)="showUpdatePatient()">Update</button>
         <button mat-button color="accent" class="red" (click)="showDeletePatient()" style="margin-left:10px;">Delete</button>
     </div>
-
     <div class="col-12 p-5" style="margin-top:-50px;">
+      <div class="col-12" style="margin-bottom:50px;">
+        <mat-chip-list>
+          <mat-chip class="b" selected *ngFor="let condition of conditions">{{ condition.name }}</mat-chip>
+        </mat-chip-list>
+      </div>
         <h1>Recent Visits</h1>
         <table mat-table [dataSource]="recentVisits" class="mat-elevation-z0 m-1 data-display">
             <ng-container matColumnDef="visit_id">
@@ -57,6 +61,23 @@
       <mat-form-field appearance="fill">
         <mat-label>Phone Number</mat-label>
         <input matInput [(ngModel)]="patient.phone_number">
+      </mat-form-field>
+    </div>
+    <div class="col-12">
+      <mat-form-field class="chip-list">
+        <mat-label>Conditions</mat-label>
+        <mat-chip-list #chipList aria-label="Condition selection">
+          <mat-chip color="accent" *ngFor="let condition of conditions" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(condition)">
+            {{condition.name}}
+            <a href="javascript:void(0)" matChipRemove><i class="fa-solid fa-remove remove"></i></a>
+          </mat-chip>
+          <input placeholder="Add condition..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
       </mat-form-field>
     </div>
     <div class="col-12">

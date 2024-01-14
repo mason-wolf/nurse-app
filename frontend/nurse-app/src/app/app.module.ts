@@ -24,6 +24,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { SearchComponent } from './search/search.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatChipsModule
   ],
   providers: [
     {

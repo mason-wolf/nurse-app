@@ -46,6 +46,43 @@ def searchPatientsByNote(search_term):
     result = db.executeQuery(query, ())
     return result
 
+
+def search_patients_by_condition(search_term):
+    query = """
+    SELECT p.first_name, p.last_name, p.id, p.notes, pc.condition_name
+    FROM patient AS p
+    INNER JOIN patient_conditions AS pc ON p.id = pc.patient_id
+    WHERE pc.condition_name LIKE LOWER(%s) AND p.id IS NOT NULL
+    """
+    result = db.executeQuery(query, ('%' + search_term.lower() + '%',))
+    return result
+
+def add_patient_condition(patient_id, condition):
+    query = "INSERT into patient_conditions (patient_id, condition_name) VALUES (%s, %s)"
+    conn = db.getConnection()
+    cursor = conn.cursor()
+    cursor.execute(query, (patient_id, condition.upper()))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return {"response": "condition added"}
+
+
+def get_patient_conditions(patient_id):
+    query = "SELECT * FROM patient_conditions WHERE patient_id = %s"
+    result = db.executeQuery(query, (patient_id,))
+    return result
+
+def delete_patient_condition(patient_id, condition):
+    query = "DELETE FROM patient_conditions WHERE condition_name=%s AND patient_id = %s"
+    conn = db.getConnection()
+    cursor = conn.cursor()
+    cursor.execute(query, (condition,patient_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return {"response" : "condition deleted"}
+
 def updatePatient(patient):
     patient_id = patient["id"]
     first_name = patient["first_name"]

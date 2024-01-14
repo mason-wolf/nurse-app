@@ -70,6 +70,36 @@ def updatePatient():
     response = patientdb.updatePatient(json.loads(request.data))
     return jsonify(response)
 
+@app.route('/patient/conditions', methods=['POST'])
+@jwt_required()
+def add_patient_condition():
+    payload = json.loads(request.data)
+    response = patientdb.add_patient_condition(payload["patient_id"], payload["condition"])
+    return jsonify(response)
+
+@app.route('/patient/<patient_id>/conditions', methods=['GET'])
+@jwt_required()
+def get_patient_conditions(patient_id):
+    response = patientdb.get_patient_conditions(patient_id)
+    return jsonify(response)
+
+
+@app.route('/patient/<patient_id>/conditions/delete', methods=['DELETE'])
+@jwt_required()
+def delete_patient_condition(patient_id):
+    condition_name = request.args.get('condition_name')
+    response = patientdb.delete_patient_condition(patient_id,condition_name)
+    return jsonify(response)
+
+
+@app.route('/patient/conditions/search', methods=['GET'])
+@jwt_required()
+def search_patients_by_condition():
+    condition_name = request.args.get('condition_name')
+    print(condition_name.upper())
+    response = patientdb.search_patients_by_condition(condition_name.upper())
+    return jsonify(response)
+
 @app.route("/deletePatient", methods=['POST'])
 @jwt_required()
 def deletePatient():
@@ -170,4 +200,4 @@ def get_week():
     return jsonify(visits)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=False, port=5000)
+    app.run(host="0.0.0.0", debug=True, port=5000)
