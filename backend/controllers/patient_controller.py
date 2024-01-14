@@ -6,7 +6,7 @@ from services import patient_service
 patient_controller = Blueprint('patient_controller', __name__)
 
 
-@patient_controller.route('/patients', methods=['GET'])
+@patient_controller.route('/patients/all', methods=['GET'])
 @jwt_required()
 def get_patients():
     patients = patient_service.get_patients()

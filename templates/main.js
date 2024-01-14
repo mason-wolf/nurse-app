@@ -50,7 +50,7 @@ class PatientService {
         this.httpClient = httpClient;
     }
     getPatients() {
-        return this.httpClient.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].url + '/patients');
+        return this.httpClient.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].url + '/patients/all');
     }
     getPatientById(patient_id) {
         return this.httpClient.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].url + "/patients/" + patient_id);
@@ -167,7 +167,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    url: 'http://localhost:5000'
+    url: 'http://192.168.0.204'
 };
 /*
  * For easier debugging in development mode, you can import the following file

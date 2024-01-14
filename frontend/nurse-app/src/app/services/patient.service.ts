@@ -12,7 +12,7 @@ export class PatientService {
   constructor(private httpClient: HttpClient) { }
 
   getPatients(): Observable<Patient[]> {
-    return this.httpClient.get<Patient[]>(environment.url + '/patients');
+    return this.httpClient.get<Patient[]>(environment.url + '/patients/all');
   }
 
   getPatientById(patient_id: string) : Observable<Patient> {
