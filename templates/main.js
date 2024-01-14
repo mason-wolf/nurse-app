@@ -167,7 +167,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    url: 'http://192.168.0.204'
+    url: 'http://localhost:5000'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -1851,17 +1851,8 @@ class AuthService {
         this.router = router;
     }
     login(username, password) {
-        return this.httpClient.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].url + "/login", JSON.stringify({ username, password }))
-            .subscribe((res) => {
-            console.log(res);
-            if (!res["error"]) {
-                console.log(res);
-                localStorage.setItem('access_token', res.access_token);
-                sessionStorage.setItem('username', res.username);
-                sessionStorage.setItem('userId', res.userId);
-                this.router.navigate(['schedule']);
-            }
-        });
+        this.logout();
+        return this.httpClient.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].url + "/login", JSON.stringify({ username, password }));
     }
     createaccount(username, password) {
         return this.httpClient.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].url + "/users", JSON.stringify({ username: username, password: password }));
@@ -2199,7 +2190,18 @@ class LoginComponent {
     }
     login() {
         if (this.email != undefined && this.password != undefined) {
-            this.authService.login(this.email, this.password);
+            this.authService.login(this.email, this.password).subscribe(res => {
+                console.log(res);
+                if (!res["error"]) {
+                    localStorage.setItem('access_token', res.access_token);
+                    sessionStorage.setItem('username', res.username);
+                    sessionStorage.setItem('userId', res.userId);
+                    this.router.navigate(['schedule']);
+                }
+                else {
+                    this.error = res;
+                }
+            });
         }
     }
 }

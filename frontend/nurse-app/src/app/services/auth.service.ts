@@ -13,17 +13,8 @@ export class AuthService {
   constructor(private httpClient : HttpClient, private router: Router) { }
 
   login(username: string, password: string) {
-    return this.httpClient.post<any>(environment.url + "/login", JSON.stringify({username, password}))
-      .subscribe((res: any) => {
-        console.log(res);
-        if(!res["error"]) {
-          console.log(res);
-          localStorage.setItem('access_token', res.access_token);
-          sessionStorage.setItem('username', res.username);
-          sessionStorage.setItem('userId', res.userId);
-          this.router.navigate(['schedule']);
-        }
-      })
+    this.logout();
+    return this.httpClient.post<any>(environment.url + "/login", JSON.stringify({username, password}));
   }
 
   createaccount(username: string, password: string) {

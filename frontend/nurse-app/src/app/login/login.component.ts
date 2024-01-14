@@ -20,7 +20,18 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.email != undefined && this.password != undefined) {
-      this.authService.login(this.email, this.password);
+      this.authService.login(this.email, this.password).subscribe(res => {
+        console.log(res);
+        if(!res["error"]) {
+          localStorage.setItem('access_token', res.access_token);
+          sessionStorage.setItem('username', res.username);
+          sessionStorage.setItem('userId', res.userId);
+          this.router.navigate(['schedule']);
+        }
+        else {
+          this.error = res;
+        }
+      });
     }
   }
 
