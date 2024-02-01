@@ -89,7 +89,7 @@ def search_patients_by_condition(search_term):
     INNER JOIN patient_conditions AS pc ON p.id = pc.patient_id
     WHERE pc.condition_name LIKE LOWER(%s) AND p.id IS NOT NULL
     """
-    result = db.executeQuery(query, ('%' + search_term.lower() + '%',))
+    result = db.executeQuery(query, ('%' + search_term+ '%',))
     return result
 
 
